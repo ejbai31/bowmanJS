@@ -2,7 +2,7 @@
 
 ### Introduction
 
-BowmanJS is modeled after the popular flashgame Bowman. The user is able to control a single archer and take aim with his bow and arrow. Using a touchpad/mouse, they can determine the velocity of the arrow as well as the angle. Game physics will be applied to determine arrow flight patterns. 
+BowmanJS is modeled after the popular flashgame [Bowman](http://www.addictinggames.com/shooting-games/bowman2.jsp). The user is able to control a single archer and take aim with his bow and arrow. Using a touchpad/mouse, they can determine the velocity of the arrow as well as the angle. Game physics will be applied to determine arrow flight patterns. 
 
 Users will be able to shoot at a target some distance away. They will score points based on what part of the target they hit. They will have a limited number of tries to score as many points as they can. 
 
