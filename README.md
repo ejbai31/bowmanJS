@@ -31,7 +31,7 @@ This application will use the following:
 - [ ] read through howler.js documentation and import sound sprites to library
 
 **Day 1**:
-- [ ] render basic images upon cavas
+- [ ] render basic images upon canvas
 - [ ] (try) to implement basic physics on objects across screen
 - [ ] implement user inputs to input values for velocity and angle
 
