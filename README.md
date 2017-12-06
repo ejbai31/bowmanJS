@@ -27,16 +27,16 @@ This application will use the following:
 ### Implementation Timeline 
 
 **Over the weekend**:
-- [ ] read through canvas tutorials (again)
-- [ ] read through howler.js documentation and import sound sprites to library
+- [x] read through canvas tutorials (again)
+- [x] read through howler.js documentation and import sound sprites to library
 
 **Day 1**:
-- [ ] render basic images upon canvas
-- [ ] (try) to implement basic physics on objects across screen
-- [ ] implement user inputs to input values for velocity and angle
+- [x] render basic images upon canvas
+- [x] (try) to implement basic physics on objects across screen
+- [x] implement user inputs to input values for velocity and angle
 
 **Day 2**:
-- [ ] incorporate physics to arrow flight 
+- [x] incorporate physics to arrow flight 
 - [ ] time sounds with actions (such as arrow release and arrow hit)
 
 **Day 3**:

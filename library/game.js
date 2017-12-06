@@ -7,13 +7,23 @@ var speedMod = 4;
 class Game {
   constructor(){
     this.arrows = []; 
+
+    this.addArrow();
   }
 
-  addArrow (){
+  addArrow(){
     this.arrows.unshift(new Arrow());
     var currArrow = this.arrows[0];
   }
-  
+
+  arrowLimit(){
+    var distFromCenter = distBetween(drawBackCirc, mousePos);
+    if (distFromCenter < drawBackCirc.r){
+      return true;
+    }else{
+      return false;
+    }
+  } 
 }
 
 

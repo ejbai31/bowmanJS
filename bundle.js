@@ -78,13 +78,7 @@ class Arrow {
   }
 
 
-  collideWith(otherObj) {
-
-  }
-
-  collidedWith(otherObj) {
-    
-  }
+  
 
   draw(ctx){
     this.calcTrajectory();
@@ -154,13 +148,23 @@ var speedMod = 4;
 class Game {
   constructor(){
     this.arrows = []; 
+
+    this.addArrow();
   }
 
-  addArrow (){
+  addArrow(){
     this.arrows.unshift(new __WEBPACK_IMPORTED_MODULE_0__arrow_js__["a" /* default */]());
     var currArrow = this.arrows[0];
   }
-  
+
+  arrowLimit(){
+    var distFromCenter = distBetween(drawBackCirc, mousePos);
+    if (distFromCenter < drawBackCirc.r){
+      return true;
+    }else{
+      return false;
+    }
+  } 
 }
 
 

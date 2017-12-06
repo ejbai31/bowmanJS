@@ -1,6 +1,6 @@
 var gravity = 0.5;
 
-
+var speedMod = 4;
 
 
 export const Distance = (p1, p2) => {

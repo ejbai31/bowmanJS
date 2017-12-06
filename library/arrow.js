@@ -8,13 +8,7 @@ class Arrow {
   }
 
 
-  collideWith(otherObj) {
-
-  }
-
-  collidedWith(otherObj) {
-    
-  }
+  
 
   draw(ctx){
     this.calcTrajectory();
