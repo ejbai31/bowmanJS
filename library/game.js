@@ -1,4 +1,5 @@
 import Arrow from './arrow.js';
+import { distance } from './utils.js';
 
 var speedMod = 4;
 
@@ -17,7 +18,7 @@ class Game {
   }
 
   arrowLimit(){
-    var distFromCenter = distBetween(drawBackCirc, mousePos);
+    var distFromCenter = distance(drawBackCirc, mousePos);
     if (distFromCenter < drawBackCirc.r){
       return true;
     }else{

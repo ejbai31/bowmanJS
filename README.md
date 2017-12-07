@@ -10,7 +10,7 @@ Users will be able to shoot at a target some distance away. They will score poin
 
 Users will be able to:
 
-- [ ] Shoot arrows at varying velocities and angles
+- [x] Shoot arrows at varying velocities and angles
 - [ ] Score points based on their projectile's end point
 - [ ] Have audio feedback on actions
 - [ ] Reset the game state at any time by pressing the restart button
