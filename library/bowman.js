@@ -186,7 +186,6 @@ var drawBackCirc = {
 
 var drawCircles = function () {
   ctx.strokeStyle = "rgba(0,0,0,0.5)";
-  // ctx.stroke();
   ctx.beginPath();
   ctx.arc(drawBackCirc.x, drawBackCirc.y, drawBackCirc.r, 0, 2 * Math.PI);
   ctx.lineWidth = 10;
@@ -194,17 +193,45 @@ var drawCircles = function () {
   drawAimer();
 };
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   const canvasEl = document.getElementById("canvas");
-//   canvasEl.width = window.innerWidth - 15;
-//   canvasEl.height = window.innerHeight - 15;
-//   let canvasWidth = canvasEl.width;
-//   let canvasHeight = canvasEl.height;
-//   let groundPoint = canvasHeight * (3 / 4);
-//   const ctx = canvasEl.getContext("2d");
-//   document.body.appendChild(canvasEl);
-//   // const arrow = new Arrow();
-//   // arrow.draw(ctx);
-//   const game = new Game();
-//   new View(game, ctx).start();
-// });
+var target = {
+  x: cWidth * (0.95),
+  y: groundPoint - 20
+};
+
+var drawTarget = function () {
+  ctx.setLineDash([]);
+  ctx.beginPath();
+  ctx.ellipse(target.x, target.y - 40, 50, 75, 0, 0, 2 * Math.PI);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.fillStyle = "red";
+  ctx.ellipse(target.x, target.y - 40, 25, 37.5, 0, 0, 2 * Math.PI);
+  ctx.stroke();
+};
+
+var isFiredArrow = function () {
+  if (mousePos && drawnBack && mouseUp) {
+    drawnBack = false;
+    firedArrow = true;
+  }
+};
+
+var isDrawnBack = function () {
+  if (mousePos && isInLimit(mousePos)) {
+    if (mouseDown) drawnBack = true;
+    else if (mouseUp) drawnBack = false;
+  }
+};
+
+var writeInfo = function (mousePos) {
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  if (isInLimit(mousePos) && mouseDown) {
+    ctx.fillStyle = "red";
+  } else {
+    ctx.fillStyle = "black";
+  }
+  ctx.fillText("Mouse Position: " + mousePos.x + ", " + mousePos.y, 20, 20);
+  ctx.fillText("Circle Position: " + shootingCirc.x + ", " + shootingCirc.y, 20, 40);
+  ctx.fillText("Angle: " + angle(mousePos, shootingCirc), 20, 60);
+};
