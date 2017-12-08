@@ -1,4 +1,3 @@
-
 class Arrow {
   constructor(options){
     this.ctx = options.ctx;
