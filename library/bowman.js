@@ -5,6 +5,7 @@ var speedDiv = 4;
 var gameOver = false;
 var score = 0;
 var arrowCount = 3;
+
 var addArrow = function () {
   arrows.unshift(new Arrow());
   currentArrow = arrows[0];
@@ -46,15 +47,18 @@ Arrow.prototype.fireArrow = function () {
 };
 
 Arrow.prototype.calcTrajectory = function () {
-  if (this.y <= groundPoint && (this.x <= target.x - 30 && this.y <= target.y + 20) && this.firing) {
-    this.velY += gravity;
-    this.x += this.velX;
-    this.y += this.velY;
-  } else {
-    this.velX = 0;
-    this.velY = 0;
-    this.firing = false;
-  }
+  if(this.firing){
+    if (this.y <= groundPoint && (this.x <= target.x - 30 && this.y <= target.y + 20)) {
+      this.velY += gravity;
+      this.x += this.velX;
+      this.y += this.velY;
+    } else {
+      this.velX = 0;
+      this.velY = 0;
+      this.firing = false;
+      score();
+    }
+} 
 };
 
 Arrow.prototype.calcArrowHead = function () {
@@ -108,6 +112,7 @@ let cHeight = canvas.height;
 
 var gravity = 0.4;
 var groundPoint = cHeight - (cHeight / 4);
+debugger;
 
 var drawnBack = false;
 var firedArrow = false;
@@ -203,17 +208,17 @@ var drawCircles = function () {
 
 var target = {
   x: cWidth * (0.95),
-  y: groundPoint - 20
+  y: groundPoint - 60
 };
 
 var drawTarget = function () {
   ctx.setLineDash([]);
   ctx.beginPath();
-  ctx.ellipse(target.x, target.y - 40, 50, 75, 0, 0, 2 * Math.PI);
+  ctx.ellipse(target.x, target.y, 50, 75, 0, 0, 2 * Math.PI);
   ctx.stroke();
   ctx.beginPath();
   ctx.fillStyle = "red";
-  ctx.ellipse(target.x, target.y - 40, 25, 37.5, 0, 0, 2 * Math.PI);
+  ctx.ellipse(target.x, target.y, 25, 37.5, 0, 0, 2 * Math.PI);
   ctx.stroke();
 };
 
@@ -253,9 +258,17 @@ var attempts = function() {
   }
 };
 
-// var score = function(){
-//   if()
-// };
+var score = function(){
+  let currentArrow = arrows[0];
+  currentArrow.calcArrowHead();
+  debugger
+  if(currentArrow.arrowTipCoords.x < target.x +25 && 
+    currentArrow.arrowTipCoords.y < target.y + 37.5 &&
+    currentArrow.arrowTipCoords.y > target.y - 37.5){
+      score += 2;
+      document.getElementById("score").innerHTML = score;
+    }
+};
 
 var update = function () {
   isDrawnBack();
