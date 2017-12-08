@@ -2,7 +2,7 @@ import { distance, angle } from './utils';
 
 var arrows = [];
 var speedDiv = 4;
-
+var gameOver = false;
 var addArrow = function () {
   arrows.unshift(new Arrow());
   currentArrow = arrows[0];
@@ -229,14 +229,17 @@ var isDrawnBack = function () {
 var writeInfo = function (mousePos) {
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
-  if (isInLimit(mousePos) && mouseDown) {
-    ctx.fillStyle = "red";
-  } else {
-    ctx.fillStyle = "black";
-  }
+  ctx.fillStyle = "black";
+  
   ctx.fillText("Mouse Position: " + mousePos.x + ", " + mousePos.y, 20, 20);
   ctx.fillText("Circle Position: " + shootingCirc.x + ", " + shootingCirc.y, 20, 40);
   ctx.fillText("Angle: " + angle(mousePos, shootingCirc), 20, 60);
+};
+
+var score = function() {
+  while(arrows.length < 3){
+    document.getElementById("shots-left");
+  }
 };
 
 var update = function () {
@@ -266,6 +269,14 @@ var main = function () {
   render();
   requestAnimationFrame(main);
 };
+
+var reset = function (){
+  gameOver = false;
+}
+
+var gameOver = function (){
+  
+}
 
 var w = window;
 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;

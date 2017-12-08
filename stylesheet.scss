@@ -9,6 +9,7 @@
 
 #bottom-menu {
   display: flex;
+  flex-direction: row;
   position: absolute;
   bottom: 100px;
   justify-content: space-between;
