@@ -3,6 +3,8 @@ import { distance, angle } from './utils';
 var arrows = [];
 var speedDiv = 4;
 var gameOver = false;
+var score = 0;
+var arrowCount = 3;
 var addArrow = function () {
   arrows.unshift(new Arrow());
   currentArrow = arrows[0];
@@ -36,7 +38,10 @@ Arrow.prototype.fireArrow = function () {
     this.velX = Math.cos(angle(mousePos, shootingCirc)) * this.velocity;
     this.velY = Math.sin(angle(mousePos, shootingCirc)) * this.velocity;
     this.firing = true;
+    attempts();
     addArrow();
+    console.log(arrowCount);
+    document.getElementById("shots-left").innerHTML = arrowCount;
   }
 };
 
@@ -236,11 +241,21 @@ var writeInfo = function (mousePos) {
   ctx.fillText("Angle: " + angle(mousePos, shootingCirc), 20, 60);
 };
 
-var score = function() {
-  while(arrows.length < 3){
-    document.getElementById("shots-left");
+var attempts = function() {
+  if(arrows.length > 0){
+    
+    arrowCount = arrowCount - 1;
+    document.getElementById("shots-left").innerHTML = arrowCount;
+  }
+  if(arrows.length >= 3){
+    // console.log("hi");
+    gameOver();
   }
 };
+
+// var score = function(){
+//   if()
+// };
 
 var update = function () {
   isDrawnBack();
@@ -272,11 +287,11 @@ var main = function () {
 
 var reset = function (){
   gameOver = false;
-}
+};
 
 var gameOver = function (){
-  
-}
+  document.getElementById("game-over").classList.remove("hide");
+};
 
 var w = window;
 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
