@@ -66,18 +66,56 @@ Arrow.prototype.calcArrowHead = function () {
   // console.log(this.arrowTipCoords.x, this.arrowTipCoords.y);
 };
 
+Arrow.prototype.drawArrow = function () {
+  this.calcTrajectory();
+  this.calcArrowHead();
+  var arrowTip = this.arrowTipCoords;
+  var leftTip = this.leftTipCoords;
+  var rightTip = this.rightTipCoords;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const canvasEl = document.getElementById("canvas");
-  canvasEl.width = window.innerWidth - 15;
-  canvasEl.height = window.innerHeight - 15;
-  let canvasWidth = canvasEl.width;
-  let canvasHeight = canvasEl.height;
-  let groundPoint = canvasHeight * (3 / 4);
-  const ctx = canvasEl.getContext("2d");
-  document.body.appendChild(canvasEl);
-  // const arrow = new Arrow();
-  // arrow.draw(ctx);
-  const game = new Game();
-  new View(game, ctx).start();
-});
+  ctx.beginPath();
+  ctx.moveTo(this.x, this.y);
+  ctx.lineTo(arrowTip.x, arrowTip.y);
+
+  ctx.moveTo(arrowTip.x, arrowTip.y);
+  ctx.lineTo(leftTip.x, leftTip.y);
+
+  ctx.moveTo(arrowTip.x, arrowTip.y);
+  ctx.lineTo(rightTip.x, rightTip.y);
+
+  ctx.strokeStyle = "black";
+  ctx.stroke();
+};
+
+
+
+var canvas = document.createElement("canvas");
+canvas.id = 'canvas';
+var ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth - 15;
+canvas.height = window.innerHeight - 15;
+document.body.appendChild(canvas);
+let cWidth = canvas.width;
+let cHeight = canvas.height;
+
+var gravity = 0.4;
+var groundPoint = cHeight - (cHeight / 4);
+
+var drawnBack = false;
+var firedArrow = false;
+
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   const canvasEl = document.getElementById("canvas");
+//   canvasEl.width = window.innerWidth - 15;
+//   canvasEl.height = window.innerHeight - 15;
+//   let canvasWidth = canvasEl.width;
+//   let canvasHeight = canvasEl.height;
+//   let groundPoint = canvasHeight * (3 / 4);
+//   const ctx = canvasEl.getContext("2d");
+//   document.body.appendChild(canvasEl);
+//   // const arrow = new Arrow();
+//   // arrow.draw(ctx);
+//   const game = new Game();
+//   new View(game, ctx).start();
+// });
