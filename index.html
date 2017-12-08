@@ -1,14 +1,34 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
   <title>BowmanJS</title>
+  <link rel="stylesheet" type="text/css" href="stylesheet.scss">
+
+
 </head>
 
 <body>
-  <canvas id="canvas"></canvas>
-
-  <script type="application/javascript" src="./bundle.js"></script>
-
+  <h1 id="title">BowmanJS</h1>
+  <!-- <script src="lib/arrow.js"></script> -->
+  <!-- <script src="lib/bowman.js"></script> -->
+  <div id="bottom-menu">
+    <div id="left">
+      <h1>Directions</h1>
+      <p>Click and drag from the circle to shoot at the target! You have three shots to score points. A target hit is 1 point,
+        and a bullseye is 2 points.
+      </p>
+    </div>
+    <div id="right">
+      <h1>Score:
+        <span id="score"></span>
+      </h1>
+      <h2>Shots left:
+        <span id="shots-left"></span>
+      </h2>
+    </div>
+  </div>
+  <script type="application/javascript" src="./lib/bundle.js"></script>
 </body>
 
 </html>

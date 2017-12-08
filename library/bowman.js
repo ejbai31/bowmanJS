@@ -3,6 +3,11 @@ import { distance, angle } from './utils';
 var arrows = [];
 var speedDiv = 4;
 
+var addArrow = function () {
+  arrows.unshift(new Arrow());
+  currentArrow = arrows[0];
+};
+
 function Arrow() {
   this.x = shootingCirc.x;
   this.y = shootingCirc.y;
@@ -86,8 +91,6 @@ Arrow.prototype.drawArrow = function () {
   ctx.strokeStyle = "black";
   ctx.stroke();
 };
-
-
 
 var canvas = document.createElement("canvas");
 canvas.id = 'canvas';
@@ -235,3 +238,37 @@ var writeInfo = function (mousePos) {
   ctx.fillText("Circle Position: " + shootingCirc.x + ", " + shootingCirc.y, 20, 40);
   ctx.fillText("Angle: " + angle(mousePos, shootingCirc), 20, 60);
 };
+
+var update = function () {
+  isDrawnBack();
+  isFiredArrow();
+  if (firedArrow) {
+    currentArrow.fireArrow();
+    firedArrow = false;
+  }
+
+  ctx.clearRect(0, 0, cWidth, cHeight);
+};
+
+var render = function () {
+  if (mousePos) writeInfo(mousePos);
+  drawCircles();
+  drawTarget();
+  for (let i = 0; i < arrows.length; i++) {
+    arrows[i].drawArrow();
+  }
+  drawScene();
+};
+
+
+var main = function () {
+  update();
+  render();
+  requestAnimationFrame(main);
+};
+
+var w = window;
+requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
+addArrow();
+var currentArrow = arrows[0];
+main();

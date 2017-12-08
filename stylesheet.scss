@@ -1,0 +1,24 @@
+
+#title {
+  text-align: center;
+  width: auto;
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+
+#bottom-menu {
+  display: flex;
+  position: absolute;
+  bottom: 100px;
+  justify-content: space-between;
+}
+
+canvas { 
+  background: url("https://res.cloudinary.com/ejbai31/image/upload/v1512731099/jungle_qrvofg.png");
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  /* opacity: .9; */
+}
