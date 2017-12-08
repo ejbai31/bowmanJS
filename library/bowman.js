@@ -104,6 +104,95 @@ var groundPoint = cHeight - (cHeight / 4);
 var drawnBack = false;
 var firedArrow = false;
 
+var isInLimit = function (mousePos) {
+  var distFromCenter = distance(drawBackCirc, mousePos);
+  if (distFromCenter < drawBackCirc.r) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+function getMousePos(canvas, e) {
+  var rect = canvas.getBoundingClientRect();
+  return {
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top
+  };
+}
+
+
+var mousePos;
+var mouseDown = false;
+var mouseUp = false;
+
+addEventListener("mousemove", function (e) {
+  mousePos = getMousePos(canvas, e);
+}, false);
+
+addEventListener("mousedown", function (e) {
+  mousePos = getMousePos(canvas, e);
+  mouseDown = true;
+  mouseUp = false;
+}, false);
+
+addEventListener("mouseup", function (e) {
+  mousePos = getMousePos(canvas, e);
+  mouseUp = true;
+  mouseDown = false;
+}, false);
+
+var drawScene = function () {
+  var ground = groundPoint + 15;
+  ctx.beginPath();
+  ctx.moveTo(0, ground);
+  ctx.lineTo(cWidth, ground);
+  ctx.strokeStyle = "rgba(0,100,50,0.6)";
+  ctx.stroke();
+  ctx.fillStyle = "rgba(0,200,100,1)";
+  ctx.fillRect(0, ground, cWidth, cHeight);
+};
+
+
+var getAimCoords = function (mousePos) {
+  var aimAng = Math.PI / 2 - angle(mousePos, shootingCirc);
+  var aimDistance = Math.min(distance(shootingCirc, mousePos), shootingCirc.r);
+  var x = shootingCirc.x + -aimDistance * Math.sin(aimAng);
+  var y = shootingCirc.y + -aimDistance * Math.cos(aimAng);
+  return { x: x, y: y };
+};
+
+var drawAimer = function () {
+  if (drawnBack) {
+    var aimCoords = getAimCoords(mousePos);
+    ctx.beginPath();
+    ctx.moveTo(aimCoords.x, aimCoords.y);
+    ctx.lineTo(shootingCirc.x, shootingCirc.y);
+    ctx.strokeStyle = "rgba(0,0,0,0.2)";
+    ctx.stroke();
+  }
+};
+var shootingCirc = {
+  x: 200,
+  y: groundPoint - 150,
+  r: 100
+};
+
+var drawBackCirc = {
+  x: shootingCirc.x,
+  y: shootingCirc.y,
+  r: 25
+};
+
+var drawCircles = function () {
+  ctx.strokeStyle = "rgba(0,0,0,0.5)";
+  // ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(drawBackCirc.x, drawBackCirc.y, drawBackCirc.r, 0, 2 * Math.PI);
+  ctx.lineWidth = 10;
+  ctx.stroke();
+  drawAimer();
+};
 
 // document.addEventListener("DOMContentLoaded", () => {
 //   const canvasEl = document.getElementById("canvas");
