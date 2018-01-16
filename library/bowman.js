@@ -6,7 +6,7 @@ var gameOver = false;
 var score = 0;
 var arrowCount = 3;
 
-var addArrow = function () {
+var addArrow = function(){
   arrows.unshift(new Arrow());
   currentArrow = arrows[0];
 };
@@ -33,7 +33,7 @@ function Arrow() {
   this.firing = false;
 }
 
-Arrow.prototype.fireArrow = function () {
+Arrow.prototype.fireArrow = function(){
   if (mousePos && !this.firing) {
     this.velocity = Math.min(shootingCirc.r, distance(shootingCirc, mousePos)) / speedDiv;
     this.velX = Math.cos(angle(mousePos, shootingCirc)) * this.velocity;
@@ -46,7 +46,7 @@ Arrow.prototype.fireArrow = function () {
   }
 };
 
-Arrow.prototype.calcTrajectory = function () {
+Arrow.prototype.calcTrajectory = function(){
   if(this.firing){
     if (this.y <= groundPoint && (this.x <= target.x - 30 && this.y <= target.y + 20)) {
       this.velY += gravity;
@@ -61,7 +61,7 @@ Arrow.prototype.calcTrajectory = function () {
 } 
 };
 
-Arrow.prototype.calcArrowHead = function () {
+Arrow.prototype.calcArrowHead = function(){
   if (this.firing) {
     var headAngle = Math.atan2(this.velX, this.velY);
   } else if (mousePos && this == currentArrow) {
@@ -77,10 +77,10 @@ Arrow.prototype.calcArrowHead = function () {
   this.rightTipCoords.x = arrowTip.x - 3 * Math.sin(headAngle + Math.PI / 4);
   this.rightTipCoords.y = arrowTip.y - 3 * Math.cos(headAngle + Math.PI / 4);
 
-  // console.log(this.arrowTipCoords.x, this.arrowTipCoords.y);
+  console.log(this.arrowTipCoords.x, this.arrowTipCoords.y);
 };
 
-Arrow.prototype.drawArrow = function () {
+Arrow.prototype.drawArrow = function(){
   this.calcTrajectory();
   this.calcArrowHead();
   var arrowTip = this.arrowTipCoords;
@@ -112,12 +112,12 @@ let cHeight = canvas.height;
 
 var gravity = 0.4;
 var groundPoint = cHeight - (cHeight / 4);
-debugger;
+
 
 var drawnBack = false;
 var firedArrow = false;
 
-var isInLimit = function (mousePos) {
+var isInLimit = function(mousePos){
   var distFromCenter = distance(drawBackCirc, mousePos);
   if (distFromCenter < drawBackCirc.r) {
     return true;
@@ -126,7 +126,7 @@ var isInLimit = function (mousePos) {
   }
 };
 
-function getMousePos(canvas, e) {
+function getMousePos(canvas, e){
   var rect = canvas.getBoundingClientRect();
   return {
     x: e.clientX - rect.left,
@@ -139,23 +139,23 @@ var mousePos;
 var mouseDown = false;
 var mouseUp = false;
 
-addEventListener("mousemove", function (e) {
+addEventListener("mousemove", function(e){
   mousePos = getMousePos(canvas, e);
 }, false);
 
-addEventListener("mousedown", function (e) {
+addEventListener("mousedown", function(e){
   mousePos = getMousePos(canvas, e);
   mouseDown = true;
   mouseUp = false;
 }, false);
 
-addEventListener("mouseup", function (e) {
+addEventListener("mouseup", function(e){
   mousePos = getMousePos(canvas, e);
   mouseUp = true;
   mouseDown = false;
 }, false);
 
-var drawScene = function () {
+var drawScene = function(){
   var ground = groundPoint + 15;
   ctx.beginPath();
   ctx.moveTo(0, ground);
@@ -167,7 +167,7 @@ var drawScene = function () {
 };
 
 
-var getAimCoords = function (mousePos) {
+var getAimCoords = function(mousePos){
   var aimAng = Math.PI / 2 - angle(mousePos, shootingCirc);
   var aimDistance = Math.min(distance(shootingCirc, mousePos), shootingCirc.r);
   var x = shootingCirc.x + -aimDistance * Math.sin(aimAng);
@@ -175,7 +175,7 @@ var getAimCoords = function (mousePos) {
   return { x: x, y: y };
 };
 
-var drawAimer = function () {
+var drawAimer = function(){
   if (drawnBack) {
     var aimCoords = getAimCoords(mousePos);
     ctx.beginPath();
@@ -197,7 +197,7 @@ var drawBackCirc = {
   r: 25
 };
 
-var drawCircles = function () {
+var drawCircles = function(){
   ctx.strokeStyle = "rgba(0,0,0,0.5)";
   ctx.beginPath();
   ctx.arc(drawBackCirc.x, drawBackCirc.y, drawBackCirc.r, 0, 2 * Math.PI);
@@ -211,7 +211,7 @@ var target = {
   y: groundPoint - 60
 };
 
-var drawTarget = function () {
+var drawTarget = function(){
   ctx.setLineDash([]);
   ctx.beginPath();
   ctx.ellipse(target.x, target.y, 50, 75, 0, 0, 2 * Math.PI);
@@ -222,21 +222,21 @@ var drawTarget = function () {
   ctx.stroke();
 };
 
-var isFiredArrow = function () {
+var isFiredArrow = function(){
   if (mousePos && drawnBack && mouseUp) {
     drawnBack = false;
     firedArrow = true;
   }
 };
 
-var isDrawnBack = function () {
+var isDrawnBack = function(){
   if (mousePos && isInLimit(mousePos)) {
     if (mouseDown) drawnBack = true;
     else if (mouseUp) drawnBack = false;
   }
 };
 
-var writeInfo = function (mousePos) {
+var writeInfo = function(mousePos){
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
   ctx.fillStyle = "black";
@@ -246,7 +246,7 @@ var writeInfo = function (mousePos) {
   ctx.fillText("Angle: " + angle(mousePos, shootingCirc), 20, 60);
 };
 
-var attempts = function() {
+var attempts = function(){
   if(arrows.length > 0){
     
     arrowCount = arrowCount - 1;
@@ -261,16 +261,16 @@ var attempts = function() {
 var score = function(){
   let currentArrow = arrows[0];
   currentArrow.calcArrowHead();
-  debugger
-  if(currentArrow.arrowTipCoords.x < target.x +25 && 
+  
+  if(
     currentArrow.arrowTipCoords.y < target.y + 37.5 &&
     currentArrow.arrowTipCoords.y > target.y - 37.5){
-      score += 2;
+      score += 2; 
       document.getElementById("score").innerHTML = score;
     }
 };
 
-var update = function () {
+var update = function(){
   isDrawnBack();
   isFiredArrow();
   if (firedArrow) {
@@ -281,7 +281,7 @@ var update = function () {
   ctx.clearRect(0, 0, cWidth, cHeight);
 };
 
-var render = function () {
+var render = function(){
   if (mousePos) writeInfo(mousePos);
   drawCircles();
   drawTarget();
@@ -292,17 +292,17 @@ var render = function () {
 };
 
 
-var main = function () {
+var main = function(){
   update();
   render();
   requestAnimationFrame(main);
 };
 
-var reset = function (){
+var reset = function(){
   gameOver = false;
 };
 
-var gameOver = function (){
+var gameOver = function(){
   document.getElementById("game-over").classList.remove("hide");
 };
 
