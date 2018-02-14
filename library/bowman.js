@@ -41,7 +41,6 @@ Arrow.prototype.fireArrow = function(){
     this.firing = true;
     attempts();
     addArrow();
-    console.log(arrowCount);
     document.getElementById("shots-left").innerHTML = arrowCount;
   }
 };
@@ -253,10 +252,10 @@ var attempts = function(){
     document.getElementById("shots-left").innerHTML = arrowCount;
   }
   if(arrows.length >= 3){
-    // console.log("hi");
     gameOver();
   }
 };
+
 
 var score = function(){
   let currentArrow = arrows[0];
@@ -282,6 +281,7 @@ var update = function(){
 };
 
 var render = function(){
+  document.getElementById("reset=button");
   if (mousePos) writeInfo(mousePos);
   drawCircles();
   drawTarget();
